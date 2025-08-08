@@ -3,8 +3,7 @@ const express = require('express');
 const cors = require('cors'); 
 const userRouter = require('./router/user'); 
 const authRouter = require('./router/auth'); 
-
-const connection = require('./config/database'); 
+const { queryGetAllUsers } = require('./controller/userController');
 
 const app = express();
 const port = process.env.PORT || 64850;
@@ -17,18 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', authRouter);
 app.use('/', userRouter);
 
-
 // connection(app);
 
-// connection.query('SELECT * FROM `user`', (err, results) => {
-//     const responseData = {
-//         status_code: 200,
-//         message: 'Lấy danh sách người dùng thành công!',
-//         data: results
-//     };
-//     console.log("✅ Response trả về:", responseData);
+queryGetAllUsers(); // Gọi trực tiếp
 
-// });
 
 app.listen(port, host, () => {
     console.log(`Server is running at http://${host}:${port}`);
