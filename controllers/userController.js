@@ -1,13 +1,12 @@
 const connection = require('../config/database');
-
-const queryGetAllUsers = (req, res) => {
-    let user = [];
-    connection.query('SELECT * FROM `user`', function (err, results, field) {
-        user = results;
-        console.log("✅ Response trả về:", user);
-    });
+const User = require('../models/user');
+const sequelize = require('sequelize');
+const db = require('../config/connect');
+const queryGetAllUsers = async (req, res) => {
+    const users = User(db, sequelize.DataTypes);
+    const data = await users.findAll();
+    return res.status(200).json(data);
 }
-
 const getAllUsers = (req, res) => {
     connection.query('SELECT * FROM `user`', (err, results) => {
         if (err) {
