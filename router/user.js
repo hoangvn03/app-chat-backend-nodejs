@@ -4,7 +4,7 @@ const {
     getAllUsers,
     updateUser,
     deleteUser,
-} = require('../controllers/userController')
+} = require('../controllers/user')
 
 
 router.get('/api/user_info', getAllUsers);

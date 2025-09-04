@@ -4,8 +4,7 @@
   "description": "app chat real time",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon --exec babel-node server.js"
   },
   "keywords": [
     "nodejs",
@@ -21,6 +20,9 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/node": "^7.28.0",
+    "@babel/preset-env": "^7.28.3",
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.6.3"
   }
