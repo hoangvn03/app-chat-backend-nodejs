@@ -1,11 +1,17 @@
-import * as services from '../services';
+import * as services from '../services/index.js';
 
 export const register = async (req, res) => {
   try {
+    const {email, password} = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        status_code: 400,
+        message: "Email and password are required!"
+      });
+    }
     const response = await services.register(req.body);
     return res.status(200).json(response);
   } catch (error) {
-    console.error('Error during registration:', error);
     return res.status(500).json({
       status_code: 500,
       message: "Registration failed!",

@@ -1,20 +1,23 @@
-require('dotenv').config();
-const mysql = require('mysql2');
+import dotenv from 'dotenv';
+import mysql from 'mysql2';
+
+dotenv.config();
 
 const connection = mysql.createPool({
     host: process.env.DB_HOST || '',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '', // ⚠️ cần khai báo lại
+    password: process.env.DB_PASSWORD || '', // ⚠️ nhớ setup trong .env
     database: process.env.DB_NAME || 'chat_app',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
 
-module.exports = connection;
-// const connection1 = mysql.createConnection({
-//     host: dbHost,
-//     //   port: dbPort,
-//     user: dbUser,
-//     database: dbName,
+export default connection;
+
+// Nếu bạn muốn dùng createConnection thay cho pool, thì có thể thêm:
+// export const connection1 = mysql.createConnection({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     database: process.env.DB_NAME,
 // });

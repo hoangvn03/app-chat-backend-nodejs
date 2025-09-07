@@ -1,5 +1,5 @@
-import * as controllers from '../controllers';
+import * as controllers from '../controllers/index.js';
 import express from 'express';
 const router = express.Router();
 router.post('/register', controllers.register);
-module.exports = router;
+export default router;

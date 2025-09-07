@@ -1,12 +1,18 @@
-const connection = require('../config/database');
-const User = require('../models/user');
-const sequelize = require('sequelize');
-const db = require('../config/connect');
+import connection from '../config/database.js';
+import User from '../models/user.js';
+import sequelize from 'sequelize';
+import db from '../config/connect.js';
+
 const queryGetAllUsers = async (req, res) => {
-    const users = User(db, sequelize.DataTypes);
-    const data = await users.findAll();
-    return res.status(200).json(data);
-}
+    try {
+        const users = User(db, sequelize.DataTypes);
+        const data = await users.findAll();
+        return res.status(200).json(data);
+    } catch (err) {
+        return res.status(500).json({ message: 'Database error', error: err.message });
+    }
+};
+
 const getAllUsers = (req, res) => {
     connection.query('SELECT * FROM `user`', (err, results) => {
         if (err) {
@@ -62,7 +68,7 @@ const deleteUser = (req, res) => {
     });
 };
 
-module.exports = {
+export {
     getAllUsers,
     updateUser,
     deleteUser,
