@@ -7,13 +7,13 @@ export const badRequest = (err, res) => {
     message: error.message 
   });
 }
-export const interalServerError = (res) => {
-  const error = createError.InternalServerError();
+export const interalServerError = (err, req, res, next) => {
+  const error = createError.InternalServerError(err);
   return res.status(error.status).json({
-    error : 500,
+    error: error.status,
     message: error.message 
   });
-}
+};
 export const notFound = (req, res) => {
   const error = createError.NotFound('This route is not defined');
   return res.status(error.status).json({

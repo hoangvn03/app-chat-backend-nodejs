@@ -2,11 +2,12 @@ import connection from '../config/database.js';
 import User from '../models/user.js';
 import sequelize from 'sequelize';
 import db from '../config/connect.js';
+import * as services from '../services/index.js';
 
 const getCurrentUser = async (req, res) => {
     try {
         const { id } = req.user;
-        const response = await db.User.findOne(id);
+        const response = await services.getOne(id);
         return res.status(200).json(response);
 
     } catch (err) {
