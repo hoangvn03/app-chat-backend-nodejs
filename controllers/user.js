@@ -3,7 +3,19 @@ import User from '../models/user.js';
 import sequelize from 'sequelize';
 import db from '../config/connect.js';
 
-const queryGetAllUsers = async (req, res) => {
+const getCurrentUser = async (req, res) => {
+    try {
+        const { id } = req.user;
+        const response = await db.User.findOne(id);
+        return res.status(200).json(response);
+
+    } catch (err) {
+        return interalServerError(res);
+    }
+}
+
+
+const getAllUsers = async (req, res) => {
     try {
         const users = User(db, sequelize.DataTypes);
         const data = await users.findAll();
@@ -13,18 +25,6 @@ const queryGetAllUsers = async (req, res) => {
     }
 };
 
-const getAllUsers = (req, res) => {
-    connection.query('SELECT * FROM `user`', (err, results) => {
-        if (err) {
-            return res.status(500).send({ message: 'Database error', error: err.message });
-        }
-        res.status(200).send({
-            status_code: 200,
-            message: "User information retrieved successfully!",
-            data: results
-        });
-    });
-};
 
 const updateUser = (req, res) => {
     const id = parseInt(req.params.id);
@@ -69,8 +69,8 @@ const deleteUser = (req, res) => {
 };
 
 export {
+    getCurrentUser,
     getAllUsers,
     updateUser,
     deleteUser,
-    queryGetAllUsers
 };

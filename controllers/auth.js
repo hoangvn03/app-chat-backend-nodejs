@@ -2,6 +2,7 @@ import * as services from '../services/index.js';
 import { badRequest, interalServerError } from '../middlewares/handle_errors.js';
 import {email , password} from '../helpper/joi_schema.js'
 import joi from 'joi';
+
 export const register = async (req, res) => {
   try {
     const {error} = joi.object({email, password}).validate(req.body);

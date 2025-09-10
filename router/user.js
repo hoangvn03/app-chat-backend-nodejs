@@ -1,10 +1,13 @@
 import express from 'express';
-import { getAllUsers, updateUser, deleteUser } from '../controllers/user.js';
-
+import * as controllers from '../controllers/index.js';
+import verifyToken from '../middlewares/verify_token.js';
 const router = express.Router();
+//PUBLIC ROUTES
 
-router.get('/api/user_info', getAllUsers);
-router.put('/api/update_user/:id', updateUser);
-router.delete('/api/delete_user/:id', deleteUser);
+//PRIVATE ROUTES
+router.use(verifyToken);
+router.get('/getUser', controllers.getCurrentUser);
+router.put('/api/update_user/:id', controllers.updateUser);
+router.delete('/api/delete_user/:id', controllers.deleteUser);
 
 export default router;
