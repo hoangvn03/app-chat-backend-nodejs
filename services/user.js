@@ -4,7 +4,7 @@ export const getOne = (userId) => new Promise(async (resolve, reject) => {
   try {
     const response = await db.User.findOne({
       where: { id : userId },
-      attributes: { exclude: ['password','createdAt','updatedAt'] },// truong hop muon loai tru password
+      attributes: { exclude: ['password','createdAt','updatedAt','role_code'] },// truong hop muon loai tru password
       include: [{ model: db.Role, as: 'roleData', attributes: ['id','code', 'value'] }]//truong hop muon lay them role
     });
     resolve({

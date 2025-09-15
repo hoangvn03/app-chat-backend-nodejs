@@ -8,7 +8,7 @@ const router = express.Router();
 
 //PRIVATE ROUTES
 router.use(verifyToken);
-router.use(isModeratorOrAdmin);
+// router.use(isAdmin);
 router.post('/getUser', controllers.getCurrentUser);
 router.put('/api/update_user/:id', controllers.updateUser);
 router.delete('/api/delete_user/:id', controllers.deleteUser);
